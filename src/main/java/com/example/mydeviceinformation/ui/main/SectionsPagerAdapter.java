@@ -49,7 +49,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = Network.newInstance(null, null);
                 break;
             case 4:
-                fragment = Location.newInstance(null, null);
+                fragment = Locations.newInstance(null, null);
                 break;
         }
         return fragment;

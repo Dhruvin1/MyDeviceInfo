@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">My Device Information</string>
+    <string name="tab_text_1">Device</string>
+    <string name="tab_text_2">Boot Loader</string>
+    <string name="tab_text_3">Battery</string>
+    <string name="tab_text_4">Network</string>
+    <string name="tab_text_5">Locations</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_device_fragment">Hello Device fragment</string>
+    <string name="hello_boot_fragment">Hello Boot Loader fragment</string>
+    <string name="hello_battery_fragment">Hello Battery fragment</string>
+    <string name="hello_network_fragment">Hello Network fragment</string>
+    <string name="hello_location_fragment">Hello Location fragment</string>
+    <string name="NA">NA</string>
+</resources>
