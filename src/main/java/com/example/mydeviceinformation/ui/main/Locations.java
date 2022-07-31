@@ -28,28 +28,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.example.mydeviceinformation.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.Locale;
 
-class LocationDetails {
-    double latitude;
-    double longitude;
-    double altitude;
-    double accuracy;
-    double speed;
-    LocationDetails(double lat, double lon, double alt, double acc, double spe)
-    {
-        latitude = lat;
-        longitude = lon;
-        altitude = alt;
-        accuracy = acc;
-        speed = spe;
-    }
-}
 
 public class Locations extends Fragment {
 
@@ -88,9 +72,8 @@ public class Locations extends Fragment {
                 Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
     }
     @SuppressLint("MissingPermission")
-    private LocationDetails getLastLocation(FusedLocationProviderClient mFusedLocationClient) {
+    private void getLastLocation(FusedLocationProviderClient mFusedLocationClient) {
 
-        LocationDetails loc = new LocationDetails(0,0,0,0,0);
         // check if permissions are given
         if (checkPermissions()) {
 
@@ -108,11 +91,17 @@ public class Locations extends Fragment {
                         if (location == null) {
                             requestNewLocationData(mFusedLocationClient);
                         } else {
-                            loc.latitude = location.getLatitude();
-                            loc.longitude = location.getLongitude();
-                            loc.altitude  = location.getAltitude();
-                            loc.accuracy = location.getAccuracy();
-                            loc.speed = location.getSpeed();
+                            // set location if available
+                            TextView lat = ((Activity) getContext()).findViewById(R.id.latitude_output);
+                            TextView lon = ((Activity) getContext()).findViewById(R.id.longitude_output);
+                            TextView alt = ((Activity) getContext()).findViewById(R.id.altitude_output);
+                            TextView acc = ((Activity) getContext()).findViewById(R.id.accuracy_output);
+                            TextView spe = ((Activity) getContext()).findViewById(R.id.speed_output);
+                            lat.setText(String.format(Locale.getDefault(),"%.8f",location.getLatitude()));
+                            lon.setText(String.format(Locale.getDefault(),"%.8f",location.getLongitude()));
+                            alt.setText(String.format(Locale.getDefault(),"%.0f m",location.getAltitude()));
+                            acc.setText(String.format(Locale.getDefault(),"%.0f m",location.getAccuracy()));
+                            spe.setText(String.format(Locale.getDefault(),"%.0f mps",location.getSpeed()));
                         }
                     }
                 });
@@ -126,7 +115,6 @@ public class Locations extends Fragment {
             // request for permissions
             requestPermissions();
         }
-        return loc;
     }
 
     @SuppressLint("MissingPermission")
@@ -150,11 +138,11 @@ public class Locations extends Fragment {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             Location mLastLocation = locationResult.getLastLocation();
-            TextView lat = (TextView) ((Activity) getContext()).findViewById(R.id.latitude_output);
-            TextView lon = (TextView) ((Activity) getContext()).findViewById(R.id.longitude_output);
-            TextView alt = (TextView) ((Activity) getContext()).findViewById(R.id.altitude_output);
-            TextView acc = (TextView) ((Activity) getContext()).findViewById(R.id.accuracy_output);
-            TextView spe = (TextView) ((Activity) getContext()).findViewById(R.id.speed_output);
+            TextView lat = ((Activity) getContext()).findViewById(R.id.latitude_output);
+            TextView lon = ((Activity) getContext()).findViewById(R.id.longitude_output);
+            TextView alt = ((Activity) getContext()).findViewById(R.id.altitude_output);
+            TextView acc = ((Activity) getContext()).findViewById(R.id.accuracy_output);
+            TextView spe = ((Activity) getContext()).findViewById(R.id.speed_output);
             lat.setText(String.format(Locale.getDefault(),"%.6f",mLastLocation.getLatitude()));
             lon.setText(String.format(Locale.getDefault(),"%.6f",mLastLocation.getLongitude()));
             alt.setText(String.format(Locale.getDefault(),"%.0f",mLastLocation.getAltitude()));
@@ -193,12 +181,7 @@ public class Locations extends Fragment {
 
         FusedLocationProviderClient mFusedLocationClient;
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this.getContext());
-        LocationDetails loc = getLastLocation(mFusedLocationClient);
-        latitude.setText(String.format(Locale.getDefault(),"%.6f",loc.latitude));
-        longitude.setText(String.format(Locale.getDefault(),"%.6f",loc.longitude));
-        altitude.setText(String.format(Locale.getDefault(),"%.0f",loc.altitude));
-        accuracy.setText(String.format(Locale.getDefault(),"%.0f",loc.accuracy));
-        speed.setText(String.format(Locale.getDefault(),"%.0f",loc.speed));
+        getLastLocation(mFusedLocationClient);
         return v;
     }
 }
