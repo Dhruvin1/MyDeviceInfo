@@ -5,10 +5,213 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.Network">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_network_fragment" />
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/network_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="Network type" />
+
+            <TextView
+                android:id="@+id/network_type_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="Text View Here" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/network_technology"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="Technology" />
+
+            <TextView
+                android:id="@+id/network_technology_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="@string/NA" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/signal_strength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="Signal Strength" />
+
+
+
+            <TextView
+                android:id="@+id/signal_strength_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="@string/NA" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/signal_strength_dbm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="Signal Value Dbm" />
+
+            <TextView
+                android:id="@+id/signal_strength_dbm_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="@string/NA" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/data_enabled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="Data Enabled" />
+
+            <TextView
+                android:id="@+id/data_enabled_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="@string/NA" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/connectivity_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="Connectivity type" />
+
+            <TextView
+                android:id="@+id/connectivity_type_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="@string/NA" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/download_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="Download speed" />
+
+            <TextView
+                android:id="@+id/download_speed_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="@string/NA" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/upload_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="Upload Speed" />
+
+            <TextView
+                android:id="@+id/upload_speed_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="5dp"
+                android:text="@string/NA" />
+
+        </TableRow>
+
+    </TableLayout>
 
 </FrameLayout>
