@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
@@ -21,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mydeviceinformation.R;
 
@@ -55,6 +57,7 @@ public class Network extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int PERMISSION_REQUEST_CODE = 45;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -62,6 +65,30 @@ public class Network extends Fragment {
 
     public Network() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission is granted. Continue the action or workflow
+                    // in your app.
+                }  else {
+                    Toast.makeText(this.getContext(),"Issue with permission",Toast.LENGTH_LONG).show();
+                }
+        }
+        // Other 'case' lines to check for other
+        // permissions this app might request.
+    }
+
+    // method to request for permissions
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(this.getActivity(), new String[]{
+                Manifest.permission.READ_PHONE_STATE}, PERMISSION_REQUEST_CODE);
     }
 
     public String[] get_network_info(TelephonyManager telephonyManager) {
@@ -75,104 +102,105 @@ public class Network extends Fragment {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return sig;
+            requestPermissions();
         }
-        switch (telephonyManager.getDataNetworkType()) {
-            case NETWORK_TYPE_EDGE:
-                sig[0] = "2G";
-                sig[1] = "EDGE";
-                break;
-            case NETWORK_TYPE_GPRS:
-                sig[0] = "2G";
-                sig[1] = "GPRS";
-                break;
-            case NETWORK_TYPE_CDMA:
-                sig[0] = "2G";
-                sig[1] = "CDMA";
-                break;
-            case NETWORK_TYPE_IDEN:
-                sig[0] = "2G";
-                sig[1] = "IDEN";
-                break;
-            case NETWORK_TYPE_1xRTT:
-                sig[0] = "2G";
-                sig[1] = "1xRTT";
-                break;
-            case NETWORK_TYPE_UMTS:
-                sig[0] = "3G";
-                sig[1] = "UMTS";
-                break;
-            case NETWORK_TYPE_HSDPA:
-                sig[0] = "3G";
-                sig[1] = "HSDPA";
-                break;
-            case NETWORK_TYPE_HSPA:
-                sig[0] = "3G";
-                sig[1] = "HSPA";
-                break;
-            case NETWORK_TYPE_HSPAP:
-                sig[0] = "3G";
-                sig[1] = "HSPAP";
-                break;
-            case NETWORK_TYPE_EVDO_0:
-                sig[0] = "3G";
-                sig[1] = "EVDO_0";
-                break;
-            case NETWORK_TYPE_EVDO_A:
-                sig[0] = "3G";
-                sig[1] = "EVDO_A";
-                break;
-            case NETWORK_TYPE_EVDO_B:
-                sig[0] = "3G";
-                sig[1] = "EVDO_B";
-                break;
-            case NETWORK_TYPE_LTE:
-                sig[0] = "4G";
-                sig[1] = "LTE";
-                break;
-            case NETWORK_TYPE_NR:
-                sig[0] = "5G";
-                sig[1] = "NR";
-                break;
-            default:
-                sig[0] = "Unknown";
-                sig[1] = "Unknown";
-        }
-        CellInfo cellInfo = telephonyManager.getAllCellInfo().get(0);
-        if (cellInfo.isRegistered()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                sig[3] = String.valueOf(cellInfo.getCellSignalStrength().getDbm());
-                int strength = cellInfo.getCellSignalStrength().getLevel();
-                switch(strength){
-                    case 0:
-                        sig[2] = "None";
-                        break;
-                    case 1:
-                        sig[2] = "Poor";
-                        break;
-                    case 2:
-                        sig[2] = "Moderate";
-                        break;
-                    case 3:
-                        sig[2] = "Good";
-                        break;
-                    case 4:
-                        sig[2] = "Excellent";
-                        break;
-                }
+        else {
+            switch (telephonyManager.getDataNetworkType()) {
+                case NETWORK_TYPE_EDGE:
+                    sig[0] = "2G";
+                    sig[1] = "EDGE";
+                    break;
+                case NETWORK_TYPE_GPRS:
+                    sig[0] = "2G";
+                    sig[1] = "GPRS";
+                    break;
+                case NETWORK_TYPE_CDMA:
+                    sig[0] = "2G";
+                    sig[1] = "CDMA";
+                    break;
+                case NETWORK_TYPE_IDEN:
+                    sig[0] = "2G";
+                    sig[1] = "IDEN";
+                    break;
+                case NETWORK_TYPE_1xRTT:
+                    sig[0] = "2G";
+                    sig[1] = "1xRTT";
+                    break;
+                case NETWORK_TYPE_UMTS:
+                    sig[0] = "3G";
+                    sig[1] = "UMTS";
+                    break;
+                case NETWORK_TYPE_HSDPA:
+                    sig[0] = "3G";
+                    sig[1] = "HSDPA";
+                    break;
+                case NETWORK_TYPE_HSPA:
+                    sig[0] = "3G";
+                    sig[1] = "HSPA";
+                    break;
+                case NETWORK_TYPE_HSPAP:
+                    sig[0] = "3G";
+                    sig[1] = "HSPAP";
+                    break;
+                case NETWORK_TYPE_EVDO_0:
+                    sig[0] = "3G";
+                    sig[1] = "EVDO_0";
+                    break;
+                case NETWORK_TYPE_EVDO_A:
+                    sig[0] = "3G";
+                    sig[1] = "EVDO_A";
+                    break;
+                case NETWORK_TYPE_EVDO_B:
+                    sig[0] = "3G";
+                    sig[1] = "EVDO_B";
+                    break;
+                case NETWORK_TYPE_LTE:
+                    sig[0] = "4G";
+                    sig[1] = "LTE";
+                    break;
+                case NETWORK_TYPE_NR:
+                    sig[0] = "5G";
+                    sig[1] = "NR";
+                    break;
+                default:
+                    sig[0] = "Unknown";
+                    sig[1] = "Unknown";
+            }
+            CellInfo cellInfo = telephonyManager.getAllCellInfo().get(0);
+            if (cellInfo.isRegistered()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    sig[3] = String.valueOf(cellInfo.getCellSignalStrength().getDbm());
+                    int strength = cellInfo.getCellSignalStrength().getLevel();
+                    switch (strength) {
+                        case 0:
+                            sig[2] = "None";
+                            break;
+                        case 1:
+                            sig[2] = "Poor";
+                            break;
+                        case 2:
+                            sig[2] = "Moderate";
+                            break;
+                        case 3:
+                            sig[2] = "Good";
+                            break;
+                        case 4:
+                            sig[2] = "Excellent";
+                            break;
+                    }
 
+                } else {
+                    sig[3] = "Feature Not Supported";
+                    sig[2] = "Feature Not Supported";
+                }
+            } else {
+                sig[3] = "Not Applicable";
+                sig[2] = "No Signal";
             }
-            else{
-                sig[3] = "Feature Not Supported";
-                sig[2] = "Feature Not Supported";
-            }
-        }
-        else{
-            sig[3] = "Not Applicable";
-            sig[2] = "No Signal";
         }
         return sig;
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -216,14 +244,14 @@ public class Network extends Fragment {
         TextView download_speed = (TextView) v.findViewById(R.id.download_speed_output);
         TelephonyManager telephonyManager = (TelephonyManager) this.getContext().getSystemService(Context.TELEPHONY_SERVICE);
 
-
         String[] signal = get_network_info(telephonyManager);
-        for(int i=0; i<4; i++){
-            network_type.setText(signal[0]);
-            network_technology.setText(signal[1]);
-            signal_strength.setText(signal[2]);
-            signal_strength_dbm.setText(signal[3]);
-            }
+        if (signal[0] == null && ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            signal = get_network_info(telephonyManager);
+        }
+        network_type.setText(signal[0]);
+        network_technology.setText(signal[1]);
+        signal_strength.setText(signal[2]);
+        signal_strength_dbm.setText(signal[3]);
 
         ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
@@ -234,7 +262,7 @@ public class Network extends Fragment {
         }
         else if(isWiFi){
             data_enabled.setText("False");
-            connectivity_type.setText("WIFI");
+            connectivity_type.setText("WiFi");
         }
         else{
             data_enabled.setText("False");

@@ -87,7 +87,6 @@ public class Device extends Fragment {
         TextView available_storage = (TextView) v.findViewById(R.id.available_storage_output);
         TextView os_security_patch = (TextView) v.findViewById(R.id.os_security_patch_output);
         TextView os_release_codename = (TextView) v.findViewById(R.id.os_release_codename_output);
-        TextView device_uuid = (TextView) v.findViewById(R.id.device_uuid_output);
 
 
         try {
@@ -133,11 +132,6 @@ public class Device extends Fragment {
             os_security_patch.setText(Build.VERSION.SECURITY_PATCH);
             os_release_codename.setText(Build.VERSION.CODENAME);
 
-            TelephonyManager telephonyManager = (TelephonyManager) this.getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-            String imei = telephonyManager.getImei();
-
-            device_uuid.setText(imei);
-            //device_uuid.setText(TelephonyManager.getDeviceId());
         }
         catch(Exception e){
             System.out.println(e.toString());
