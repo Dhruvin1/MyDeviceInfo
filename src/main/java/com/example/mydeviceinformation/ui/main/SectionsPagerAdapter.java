@@ -14,12 +14,12 @@ import java.lang.reflect.GenericDeclaration;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
- * one of the sections/tabs/pages.
+ * one of the sections/tabs/pages
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[] {R.string.tab_text_1, R.string.tab_text_2,
+    private static final int[] TAB_TITLES = new int[] {R.string.tab_text_1,
             R.string.tab_text_3, R.string.tab_text_4, R.string.tab_text_5};
     private final Context mContext;
 
@@ -40,15 +40,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = Device.newInstance(null, null);
                 break;
             case 1:
-                fragment = BootLoader.newInstance(null, null);
-                break;
-            case 2:
                 fragment = Battery.newInstance(null, null);
                 break;
-            case 3:
+            case 2:
                 fragment = Network.newInstance(null, null);
                 break;
-            case 4:
+            case 3:
                 fragment = Locations.newInstance(null, null);
                 break;
         }
